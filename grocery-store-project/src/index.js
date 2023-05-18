@@ -3,12 +3,19 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import App from './App';
+import configureStore from './store/index.js';
+import {Provider} from 'react-redux';
+
+const store = configureStore();
+
 
 function Root() {
   return (
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <Provider store={store}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </Provider>
   );
 }
 
@@ -18,3 +25,7 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
+
+if (process.env.NODE_ENV !== "production") {
+  window.store = store;
+}
